@@ -3,6 +3,7 @@ title: "tooth_growth"
 author: "Kyle Scully"
 date: "October 25, 2014"
 output:
+  pdf_document: default
   html_document:
     keep_md: yes
 ---
@@ -40,16 +41,72 @@ From the plot and data summaries in the previous section we can see that there a
 
 We also observe that there are only two Supplements tested:
 
-* OJ
-* VC
+* OJ - Orange Juice
+* VC - Vitamin C
 
-These Supplements are tested are 3 dosages:
+These Supplements are tested at 3 dosage amounts:
 
-* 0.5
-* 1.0
-* 2.0
+* 0.5 mg
+* 1.0 mg
+* 2.0 mg
 
-Also there seems to be some sort of positive correlation between dosage and tooth length
+Also there seems to be some sort of positive correlation between dosage and tooth length from the plot.
 
-## Use confidence intervals and hypothesis tests to compare tooth growth by supp and dose
+## Confidence intervals and hypothesis tests
+
+```{r}
+ggplot(aes(x = supp, y = len),
+       data = ToothGrowth) +
+  geom_boxplot(aes(fill = supp)) +
+  facet_wrap(~ dose) +
+  xlab("Supplement Type") +
+  ylab("Tooth length") 
+```
+
+```{r}
+ggplot(aes(x=supp, y=len),
+       data=ToothGrowth) +
+  geom_boxplot(aes(fill=supp)) + 
+  xlab("Supplement Type") +
+  ylab("Tooth Length") 
+```
+
+Our suspicion from the above plots is that tooth growth will only have significant impact from dosage amount.
+
+Lets setup some null hypothesis and put the data to the test.
+
+**First null hypothesis: The variances of tooth length between each Supplement are not equal:**
+
+```{r}
+t.test(ToothGrowth$len[ToothGrowth$supp=="OJ"], ToothGrowth$len[ToothGrowth$supp=="VC"], paired = FALSE, var.equal = FALSE)
+```
+
+We find the p-value to be 0.06063, which means there is enough evidence to reject the null hypothesis.  This essentially means that we cannot assume that the Supplement provided has an effect on tooth growth as the variances between supplements tested are essentially equal.
+
+**Second null hypothesis: The variances of Dosage=0.5 mg and Dosage=1.0 mg are equal**
+
+```{r}
+t.test(ToothGrowth$len[ToothGrowth$dose==1], ToothGrowth$len[ToothGrowth$dose==0.5], paired = FALSE, var.equal = TRUE)
+```
+
+We find the p-value to be 1.266e-07 which is very small, which means there is not enough evidence to reject the null hypothesis.  This essentially means it is safe to assume there is some correlation between tooth growth and dosages between tests at value 0.5 mg and value 1.0 mg.
+
+Similarly, we can test between dosages 1.0 mg and 2.0 mg.
+
+**Third null hypothesis: The variances of Dosage=1.0 and Dosage=2.0 are equal**
+
+```{r}
+t.test(ToothGrowth$len[ToothGrowth$dose==2], ToothGrowth$len[ToothGrowth$dose==1], paired = FALSE, var.equal = TRUE)
+```
+
+We find the p-value to be 1.811e-05 which is very small, which means there is not enough evidence to reject the null hypothesis.  This essentially means it is safe to assume there is some correlation between tooth growth and dosages between tests at value 1.0 mg and value 2.0 mg.
+
 ## Conclusions and Assumptions
+
+While quite obvious from the graphs we can conclude that supplement delivery (via juice or pill) had no significant effect on tooth growth.  Additionally, we can conclude that there is a positive correlation between dosage amount taken and tooth growth.
+
+### Assumptions:
+
+* This assumes that the data collected took the appropriate steps to randomize the population so that the sample selected was representative of the whole.
+* There are no other variables in the way the test was conducted that had confounding effects on tooth growth
+* The amounts of supplement administered were true to the amounts recorded.
