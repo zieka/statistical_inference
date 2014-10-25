@@ -1,0 +1,21 @@
+---
+title: "tooth_growth"
+author: "Kyle Scully"
+date: "October 25, 2014"
+output:
+  html_document:
+    keep_md: yes
+  pdf_document: default
+---
+
+
+# Introduction
+
+This report will analyze the ToothGrowth data in the R datasets package. 
+
+## Load the ToothGrowth data and perform some basic exploratory data analyses
+
+## Provide a basic summary of the data.
+
+## Use confidence intervals and hypothesis tests to compare tooth growth by supp and dose
+## Conclusions and Assumptions
