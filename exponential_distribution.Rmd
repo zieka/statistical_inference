@@ -3,9 +3,9 @@ title: "exponential_distribution"
 author: "Kyle Scully"
 date: "October 25, 2014"
 output:
-  pdf_document: default
   html_document:
     keep_md: yes
+  pdf_document: default
 ---
 
 # Introduction
@@ -19,7 +19,7 @@ The following properties will be discussed:
 1. The center of the distribution
 2. The variance of the distribution
 3. The normality of the distribution
-4. The coverage of the confidence interval for $\frac{1}{\lambda}: ( \bar{X}±1.96\frac{S}{\sqrt{n}} )$
+4. The coverage of the confidence interval for $\frac{1}{\lambda}: ( \bar{X}\pm1.96\frac{S}{\sqrt{n}} )$
 
 
 
@@ -110,7 +110,7 @@ stat_function(fun = dnorm,
 
 The figure above is a histogram of our simulation with the theoretical distribution curve overlayed.  The simulation tends to be fairly normal.
 
-## The coverage of the confidence interval for $\frac{1}{\lambda}: ( \bar{X}±1.96\frac{S}{\sqrt{n}} )$
+## The coverage of the confidence interval for $\frac{1}{\lambda}: ( \bar{X}\pm1.96\frac{S}{\sqrt{n}} )$
 
 ```{r}
 mean(mean_of_each_trial) + c(-1,1)*1.96*sd(mean_of_each_trial)/sqrt(trials)

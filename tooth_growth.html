@@ -141,7 +141,10 @@ data(ToothGrowth)</code></pre>
 <p>Our suspicion from the above plots is that tooth growth will only have significant impact from dosage amount.</p>
 <p>Lets setup some null hypothesis and put the data to the test.</p>
 <p><strong>First null hypothesis: The variances of tooth length between each Supplement are not equal:</strong></p>
-<pre class="r"><code>t.test(ToothGrowth$len[ToothGrowth$supp==&quot;OJ&quot;], ToothGrowth$len[ToothGrowth$supp==&quot;VC&quot;], paired = FALSE, var.equal = FALSE)</code></pre>
+<pre class="r"><code>t.test(ToothGrowth$len[ToothGrowth$supp==&quot;OJ&quot;],
+       ToothGrowth$len[ToothGrowth$supp==&quot;VC&quot;],
+       paired = FALSE,
+       var.equal = FALSE)</code></pre>
 <pre><code>## 
 ##  Welch Two Sample t-test
 ## 
@@ -155,7 +158,10 @@ data(ToothGrowth)</code></pre>
 ##     20.66     16.96</code></pre>
 <p>We find the p-value to be 0.06063, which means there is enough evidence to reject the null hypothesis. This essentially means that we cannot assume that the Supplement provided has an effect on tooth growth as the variances between supplements tested are essentially equal.</p>
 <p><strong>Second null hypothesis: The variances of Dosage=0.5 mg and Dosage=1.0 mg are equal</strong></p>
-<pre class="r"><code>t.test(ToothGrowth$len[ToothGrowth$dose==1], ToothGrowth$len[ToothGrowth$dose==0.5], paired = FALSE, var.equal = TRUE)</code></pre>
+<pre class="r"><code>t.test(ToothGrowth$len[ToothGrowth$dose==1],
+       ToothGrowth$len[ToothGrowth$dose==0.5],
+       paired = FALSE,
+       var.equal = TRUE)</code></pre>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
@@ -170,7 +176,10 @@ data(ToothGrowth)</code></pre>
 <p>We find the p-value to be 1.266e-07 which is very small, which means there is not enough evidence to reject the null hypothesis. This essentially means it is safe to assume there is some correlation between tooth growth and dosages between tests at value 0.5 mg and value 1.0 mg.</p>
 <p>Similarly, we can test between dosages 1.0 mg and 2.0 mg.</p>
 <p><strong>Third null hypothesis: The variances of Dosage=1.0 and Dosage=2.0 are equal</strong></p>
-<pre class="r"><code>t.test(ToothGrowth$len[ToothGrowth$dose==2], ToothGrowth$len[ToothGrowth$dose==1], paired = FALSE, var.equal = TRUE)</code></pre>
+<pre class="r"><code>t.test(ToothGrowth$len[ToothGrowth$dose==2],
+       ToothGrowth$len[ToothGrowth$dose==1],
+       paired = FALSE,
+       var.equal = TRUE)</code></pre>
 <pre><code>## 
 ##  Two Sample t-test
 ## 
